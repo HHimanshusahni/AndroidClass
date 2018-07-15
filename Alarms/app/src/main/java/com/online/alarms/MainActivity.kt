@@ -9,6 +9,9 @@ import android.os.Bundle
 import android.os.SystemClock
 import kotlinx.android.synthetic.main.activity_main.*
 
+
+
+
  class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,19 +19,26 @@ import kotlinx.android.synthetic.main.activity_main.*
         setContentView(R.layout.activity_main)
 
         val am = getSystemService(Context.ALARM_SERVICE)as AlarmManager
-        val intent = Intent(this,MainActivity::class.java)
-        val pi = PendingIntent.getActivity(
+        val intent = Intent(this,MyService::class.java)
+
+        val pi = PendingIntent.getService(
                 this,
                 111,
                 intent,
-                PendingIntent.FLAG_ONE_SHOT
+                PendingIntent.FLAG_UPDATE_CURRENT
         )
+        // set  will fire alarm after 1 min  to sava battery
+        // setExact will fire it at exact time
         btnAlarm.setOnClickListener{
-            am.set(
+            am.setExact(
                     AlarmManager.ELAPSED_REALTIME,
-                    SystemClock.elapsedRealtime()+(1000*30),
+                    SystemClock.elapsedRealtime()+(1000*10 ),
                     pi
             )
         }
+        btnStop.setOnClickListener{
+            stopService(intent)
+        }
+
     }
 }
