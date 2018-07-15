@@ -49,8 +49,22 @@ class MainActivity : AppCompatActivity() {
                      val x = values[0]
                      val y = values[1]
                      val z = values[2]
-                    val (r,g,b) = values.map { (255*((it*12)/24).toInt()) }
+                    val (r,g,b) = values.map { (255*((it+12)/24)).toInt() }
+
+
+
+                     val rms = Math.pow(
+
+                             ( values
+                                     .map { (it*it)/values.size }
+                                     .reduce{acc,f1->acc+f1 }).toDouble(),
+
+                             0.5
+                     )
+                     tvRmsAccel.text = rms.toString()
+
                      frameid.setBackgroundColor(Color.rgb(r,g,b))
+
                  }
 
              }
@@ -59,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         sm.registerListener(
                 sensorListener,
                 accelSensor,
-                1000*1000000
+                1000*1000
         )
     }
 }

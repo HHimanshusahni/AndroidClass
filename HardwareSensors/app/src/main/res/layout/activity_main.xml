@@ -7,5 +7,13 @@
     tools:context=".MainActivity"
     android:id="@+id/frameid">
 
+    <TextView
+        android:id="@+id/tvRmsAccel"
+        android:layout_gravity="center"
+        android:textSize="30sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        />
 
 </FrameLayout>
